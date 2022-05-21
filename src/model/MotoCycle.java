@@ -54,7 +54,10 @@ public class MotoCycle extends Vehicle{
     public void setType(MotoCycleType type) {
         this.type = type;
     }
-
+    /**
+     * description: this method calculate sell value of one vehicle
+     * @return need be inicializate
+     */
     public double sellValue(){
         double p=super.getBaseValue();
         if(super.getDocumentsMecanic()==null && super.getDocumentsSoat()==null){

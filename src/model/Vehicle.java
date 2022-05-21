@@ -163,6 +163,13 @@ public abstract class Vehicle{
         documentsMecanic.setImage(image);
     }
 
+    public String getSoatNumber(){
+        return this.documentsSoat.getNumber();
+    }
+
+    public String getMecanicNumber(){
+        return this.documentsMecanic.getNumber();
+    }
 
     public int getPropietyTarjet() {
         return this.propietyTarjet;
@@ -176,6 +183,28 @@ public abstract class Vehicle{
         return this.id;
     }
     public abstract double sellValue();
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "\n" +
+            ", baseValue='" + getBaseValue() + "\n" +
+            ", sellValue='" + getSellValue() + "\n" +
+            ", mark='" + getMark() + "\n" +
+            ", model='" + getModel() + "\n" +
+            ", cilindraje='" + getCilindraje() + "\n" +
+            ", kilometraje='" + getKilometraje() + "\n" +
+            ", neww='" + isNeww() + "\n" +
+            ", placa='" + getPlaca() + "\n" +
+            ", doorsNumber='" + getDoorsNumber() + "\n" +
+            ", windowp='" + isWindowp() + "\n" +
+            ", vehicleType='" + getVehicleType() + "\n" +
+            ", documentsSoat='" + getDocumentsSoat() + "\n" +
+            ", documentsMecanic='" + getDocumentsMecanic() + "\n" +
+            ", propietyTarjet='" + getPropietyTarjet() + "\n" +
+            "}";
+    }
+
 
     
 

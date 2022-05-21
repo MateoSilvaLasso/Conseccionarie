@@ -17,7 +17,7 @@ public abstract class Documents {
         
         for(int i=0; i<MAX_FILA; i++){
             for(int j=0; j<MAX_COLUMN; j++){
-                image[i][j]+= r.nextInt(9);
+                image[i][j]= r.nextInt(9);
             }
         }
         this.number= chooseNumber();

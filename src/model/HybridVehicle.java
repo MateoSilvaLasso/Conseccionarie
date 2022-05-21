@@ -84,6 +84,10 @@ public class HybridVehicle extends Vehicle{
     public void setChargerType(ChargerType chargerType) {
         this.chargerType = chargerType;
     }
+    /**
+     * description: this method calculate sell value of one vehicle
+     * @return p, need be inicializated
+     */
     public double sellValue(){
         double p=super.getBaseValue();
         if(super.getDocumentsMecanic()==null && super.getDocumentsSoat()==null){

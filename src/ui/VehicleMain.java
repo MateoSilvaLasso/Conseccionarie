@@ -3,7 +3,8 @@ package ui;
 import model.Concessionaire;
 import java.util.*;
 import java.text.DecimalFormat;
-public class VehicleMain {
+
+public class VehicleMain{
     
     private Concessionaire c;
     private Concessionaire d;
@@ -12,11 +13,11 @@ public class VehicleMain {
         c= new Concessionaire();
          read= new Scanner(System.in);
          initModel init= new initModel();
-      d= new Concessionaire(init.vehicles());
+        d= new Concessionaire(init.vehicles(), init.park());
         
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         VehicleMain m= new VehicleMain();
 
         int option=0;
@@ -31,7 +32,11 @@ public class VehicleMain {
 
         System.out.println("1: Registrar auto\n"+
                            "2: Show the sell value\n"+
-                           "3: show information");
+                           "3: show information\n"+
+                           "4: show Soat or mecanic\n"+
+                           "5: show parking ocupation\n"+
+                           "6: show parking information\n"+
+                           "0: out");
         int option=read.nextInt();
 
         return option;
@@ -49,11 +54,26 @@ public class VehicleMain {
             case 3:
               showInformation();
               break;
+            case 4:
+              ShowNumber();
+              break;
+            case 5:
+              showParking();
+              break;
+            case 6: 
+              showParkingInformation();
+              break;
+            case 0:
+              System.out.println("bye,come please");
+              break;
+            
 
         }
 
     }
-
+    /**
+     * description: this vehicle register a new vehicle
+     */
     public void registerVehicle(){
          
          
@@ -75,8 +95,8 @@ public class VehicleMain {
          System.out.println("type the base value");
          baseValue=read.nextDouble();
          System.out.println("type the mark");
-         mark=read.nextLine();
          read.nextLine();
+         mark=read.nextLine();
          System.out.println("type the model");
          model= read.nextLine();
          System.out.println("type the cilindraje");
@@ -118,6 +138,7 @@ public class VehicleMain {
                             "3: hibryd\n"+
                             "4: Motocycle");
          int option= read.nextInt();
+         double batteryConsum=0;
          switch(option){
              case 1:
               double tankCapacity;
@@ -126,8 +147,7 @@ public class VehicleMain {
 
               System.out.println("type the tankCapacity");
               tankCapacity=read.nextDouble();
-              System.out.println("type the oilConsume");
-              oilConsume= read.nextDouble();
+              oilConsume= tankCapacity*(cilindraje/150);
               System.out.println("type the gasoline type 1: corrient 2: diesel 3: extra");
               type1= read.next().charAt(0);
               String desi=null;
@@ -135,12 +155,14 @@ public class VehicleMain {
               c.addVehicle(id,baseValue, mark, model, cilindraje, kilometraje, neww, placa, doorsNumber, windowp, type, tankCapacity, oilConsume, type1);
               if(neww){
                
-                c.setDocumentsInvehicle(0, mark, model, 0, 0);
+                c.setDocumentsInvehicle(0, id, 0, 0);
                
-              }else{
+              }else if(!neww){
+                
                 System.out.println("the vehicle has completly documents YES/NO");
-                desi= read.nextLine();
                 read.nextLine();
+                desi= read.nextLine();
+                
                 if(desi.equalsIgnoreCase("yes")){
                   double value;
                   int year;
@@ -153,8 +175,8 @@ public class VehicleMain {
                   double cobertura= read.nextDouble();
                   System.out.println("type the gases levels of the tecnic mecanic");
                   double gases= read.nextDouble();
-                  c.setDocumentsInvehicle(mark, model, value, year, cobertura);
-                  c.setDocumentsInvehicle(value, mark, model, year, gases);
+                  c.setDocumentsInvehicle(id, value, year, cobertura);
+                  c.setDocumentsInvehicle(value, id, year, gases);
                 }
                
               }
@@ -163,21 +185,26 @@ public class VehicleMain {
 
             case 2:
              double batteryDuration;
-             double batteryConsum;
+            
              int type2;
 
              System.out.println("type battery duration");
              batteryDuration= read.nextDouble();
-             System.out.println("type the vehicle consume");
-             batteryConsum=read.nextDouble();
              System.out.println("type the type pf the power 1: Normal 2: fast");
              type2=read.nextInt();
+             if(type2==1){
+                batteryConsum=(batteryDuration+18)*(cilindraje/100);
+             }else{
+              batteryConsum=(batteryDuration+13)*(cilindraje/100);
+             }
+             
+            
              c.addVehicle(id,baseValue, mark, model, cilindraje, kilometraje, neww, placa, doorsNumber, windowp, type, batteryDuration, batteryConsum, type2);
              if(neww){
                 double value=0;
                 int year=2022;
                 double gases= 0;
-                c.setDocumentsInvehicle(value, mark, model, year, gases);
+                c.setDocumentsInvehicle(value, id, year, gases);
               }else{
                 System.out.println("the vehicle has completly documents YES/NO");
                 desi= read.nextLine();
@@ -194,8 +221,8 @@ public class VehicleMain {
                   double cobertura= read.nextDouble();
                   System.out.println("type the gases levels of the tecnic mecanic");
                   double gases= read.nextDouble();
-                  c.setDocumentsInvehicle(mark, model, value, year, cobertura);
-                  c.setDocumentsInvehicle(value, mark, model, year, gases);
+                  c.setDocumentsInvehicle(id, value, year, cobertura);
+                  c.setDocumentsInvehicle(value, id, year, gases);
                 }
               }
              break;
@@ -203,23 +230,27 @@ public class VehicleMain {
                  
                  System.out.println("type the tankCapacity");
                  tankCapacity=read.nextDouble();
-                 System.out.println("type the oilConsume");
-                 oilConsume= read.nextDouble();
+                 oilConsume= tankCapacity*(cilindraje/180);
                  System.out.println("type the gasoline type 1: corrient 2: diesel 3: extra");
-                 type1= read.nextLine().charAt(0);
+                 type1= read.next().charAt(0);
                  System.out.println("type battery duration");
                  batteryDuration= read.nextDouble();
-                 System.out.println("type the vehicle consume");
-                 batteryConsum=read.nextDouble();
                  System.out.println("type the type pf the power 1: Normal 2: fast");
                  type2=read.nextInt();
+                 if(type2==1){
+                  batteryConsum=(batteryDuration+7)*(cilindraje/200);
+                 }else{
+                  batteryConsum=batteryDuration*(cilindraje/200);
+                 }
+                 
+                 
 
                  c.addVehicle(id,baseValue, mark, model, cilindraje, kilometraje, neww, placa, doorsNumber, windowp, type, tankCapacity, oilConsume, batteryDuration, batteryConsum, type1, type2);
                  if(neww){
                     double value=0;
                     int year=2022;
                     double gases= 0;
-                    c.setDocumentsInvehicle(value, mark, model, year, gases);
+                    c.setDocumentsInvehicle(value, id, year, gases);
                   }else{
                     System.out.println("the vehicle has completly documents YES/NO");
                     desi= read.nextLine();
@@ -236,8 +267,8 @@ public class VehicleMain {
                       double cobertura= read.nextDouble();
                       System.out.println("type the gases levels of the tecnic mecanic");
                       double gases= read.nextDouble();
-                      c.setDocumentsInvehicle(mark, model, value, year, cobertura);
-                      c.setDocumentsInvehicle(value, mark, model, year, gases);
+                      c.setDocumentsInvehicle(id, value, year, cobertura);
+                      c.setDocumentsInvehicle(value, id, year, gases);
                     }
                   }
                  break;
@@ -247,8 +278,7 @@ public class VehicleMain {
                 int type5;
                 System.out.println("type the gasoline capacity");
                 gasolineCapacity= read.nextDouble();
-                System.out.println("type the gasoline gast");
-                gasolineGasto= read.nextDouble();
+                gasolineGasto= gasolineCapacity*(cilindraje/75);
                 System.out.println("type the type of the motocycle\n"+
                                    "1: Estandar\n"+
                                    "2: sport\n"+
@@ -261,7 +291,7 @@ public class VehicleMain {
                     double value=0;
                     int year=2022;
                     double gases= 0;
-                    c.setDocumentsInvehicle(value, mark, model, year, gases);
+                    c.setDocumentsInvehicle(value, id, year, gases);
                   }else{
                     System.out.println("the vehicle has completly documents YES/NO");
                     desi= read.nextLine();
@@ -278,13 +308,15 @@ public class VehicleMain {
                       double cobertura= read.nextDouble();
                       System.out.println("type the gases levels of the tecnic mecanic");
                       double gases= read.nextDouble();
-                      c.setDocumentsInvehicle(mark, model, value, year, cobertura);
-                      c.setDocumentsInvehicle(value, mark, model, year, gases);
+                      c.setDocumentsInvehicle(id, value, year, cobertura);
+                      c.setDocumentsInvehicle(value, id, year, gases);
                     }
                   }
         }
     }
-
+    /**
+     * description: this method show value of one vehicle
+     */
     public void showValue(){
      String id;
      
@@ -302,9 +334,14 @@ public class VehicleMain {
         System.out.println("the value of the car is " +df.format(value));
      }
     }
-
+    /**
+     * description: this method show information depending the type
+     */
     public void showInformation(){
-        System.out.println("1: see for type\n"+
+      if(!c.validAnyCar()){
+        System.out.println("there arent any car in the system");
+      }else{
+            System.out.println("1: see for type\n"+
                            "2: see for combustible type\n"+
                            "3: see for new or used");
         int option= read.nextInt();
@@ -332,7 +369,59 @@ public class VehicleMain {
                 break;
         }
         System.out.println(d.showInformation(option, option1)); 
+      }
+        
     }
+    /**
+     * description: this method show documents number 
+     */
+    public void ShowNumber(){
+      if(!c.validAnyCar()){
+        System.out.println("there arent any car in the system");
+      }else{
+        System.out.println("type the id");
+        read.nextLine();
+        String id=read.nextLine();
+        
+        System.out.println(c.showDocuments(id));
+      }
+        
+    }
+    /**
+     * description: show the parking in console
+     */
+    public void showParking(){
+        int [][] parking= d.showParking();
+        for(int i=0; i<parking.length;i++){
+          System.out.println("----------"); 
+            for(int j=0; j<parking[0].length; j++){
+                System.out.print("|"+parking[i][j]);
+            }
+            System.out.println();
+        }
+    }
+    /**
+     * description: this methos return information about cars in parking 
+     */
+    public void showParkingInformation(){
+      System.out.println("you want see the information park: \n"+
+                         "1: see in years range\n"+
+                         "2: see oldest or youngest\n"+
+                         "3: see porcent ocupation");
+      int option= read.nextInt();
 
-
+      if(option==1){
+        System.out.println("type the inicial year");
+        int year=read.nextInt();
+        System.out.println("type the final year");
+        int year1= read.nextInt();
+       System.out.println(d.showParkingInRange(year, year1)); 
+      }else if(option==2){
+        System.out.println("1: oldest\n"+"2: youngest");
+        int know= read.nextInt();
+        System.out.println(d.showMore(know));
+      }else if(option==3){
+         System.out.println("el porcentaje de ocupacion del parqueadero es "+d.ShowPorcent()+"%");
+      }
+    }
 }

@@ -1,15 +1,15 @@
 package model;
-import java.util.Random;
+
 public class Mecanic extends Documents{
 
     private double gases;
-    private Random r;
+    
 
     public Mecanic(double value, int year,double gases) {
         super(value, year);
         this.gases = gases;
-        r= new Random();
-        super.setNumber(chooseNumber());
+       
+       
     }
 
     public double getGases() {
@@ -19,16 +19,19 @@ public class Mecanic extends Documents{
     public void setGases(double gases) {
         this.gases = gases;
     }
-    
+    /**
+     * description: this method gives value to the document
+     * @return f
+     */
     public String chooseNumber(){
         int [][]matrix= super.getImage();
         String out="";
         int n=MAX_COLUMN-1;
-        for(int i=0; i<=0; i++){
+        
             for(int j=0; j<MAX_COLUMN; j++){
-                out+=Integer.toString(matrix[i][j]);
+                out+=Integer.toString(matrix[0][j]);
             }
-        }
+        
 
         for(int i=1; i<MAX_FILA; i++){
             for(int j=n; j>=n; j--){

@@ -42,7 +42,10 @@ public class ElectricVehicle extends Vehicle{
     public void setType(ChargerType type) {
         this.type = type;
     }
-
+    /**
+     * description: this method calculate sell value of one vehicle
+     * @return need be inicializated
+     */
     public double sellValue(){
         double p=super.getBaseValue();
         if(super.getDocumentsMecanic()==null && super.getDocumentsSoat()==null){

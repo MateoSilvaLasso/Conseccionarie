@@ -44,10 +44,13 @@ public class GasolineVehicle extends Vehicle{
     public void setType(GasolineType type) {
         this.type = type;
     }
-
+    /**
+     * description: this method calculate sell value of one vehicle
+     * @return need be inicializated
+     */
     public double sellValue(){
         double p=super.getBaseValue();
-        if(super.getDocumentsMecanic()==null && super.getDocumentsSoat()==null){
+        if(super.getDocumentsMecanic()==null || super.getDocumentsSoat()==null){
             p+=500000;
         }
 
@@ -69,9 +72,9 @@ public class GasolineVehicle extends Vehicle{
             "model="+super.getModel()+"\n"+
             "cilindraje="+super.getKilometraje()+"\n"+
             "kilometraje="+super.getKilometraje()+"\n"+
-            " tankCapacity='" + getTankCapacity() + "\n" +
-            ", oilConsume='" + getOilConsume() + "\n" +
-            ", type='" + getType() + "\n" +
+            "tankCapacity='" + getTankCapacity() + "\n" +
+            "oilConsume='" + getOilConsume() + "\n" +
+            "type='" + getType() + "\n" +
             "}";
     }
 
